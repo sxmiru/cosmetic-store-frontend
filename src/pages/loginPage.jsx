@@ -12,7 +12,7 @@ export default function LoginPage(){
         console.log(email,password)
         axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users/login",{
             email: email,
-            password: password
+            password: password,
         }).then(
             (response)=>{
                 console.log(response.data)
