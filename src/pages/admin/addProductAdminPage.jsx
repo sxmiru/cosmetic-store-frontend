@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import UploadFile from "../../utils/mediaUpload";
 
 export default function AddProductPage(){
 
@@ -17,7 +18,19 @@ export default function AddProductPage(){
     const [category, setCategory] = useState("cream");     
     const navigate = useNavigate();
     
-    function handleSubmit(){
+    async function handleSubmit(){
+
+        const promisesArray = [];
+
+        for (let i=0; i<images.length; i++){
+            const promise = UploadFile(images[i])
+            promisesArray[i] = promise
+        }
+
+        const responses = await Promise.all(promisesArray)
+        console.log(responses)
+
+
         const altNamesInArray = alternativeNames.split(",")
         const productData = {
             productId : productId,
@@ -25,7 +38,7 @@ export default function AddProductPage(){
             altNames : altNamesInArray,
             labelledPrice : labelledPrice,
             price : price,
-            images : [],
+            images : responses,
             description : description,
             stock : stock,
             isAvailable : isAvailable,
@@ -88,8 +101,8 @@ export default function AddProductPage(){
                 </div>
                 <div className="w-[500px] flex flex-col gap-[5px]">
                     <label className="text-sm font-semibold">Images:</label>
-                    <input type="text" value={images} onChange={(e)=>{setImages(e.target.value)}} 
-                    className="w-full border-[1px] h-[40px] rounded-md shadow-2xl" />
+                    <input multiple type="file" onChange={(e)=>{(setImages(e.target.files))}}
+                    className="w-full border-[1px] h-[40px] rounded-md shadow-2xl"/>
                 </div>
                 <div className="w-[500px] flex flex-col gap-[5px]">
                     <label className="text-sm font-semibold">Description:</label>

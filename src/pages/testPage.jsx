@@ -1,31 +1,35 @@
 import { useState } from "react";
+import { createClient } from "@supabase/supabase-js";
+import toast from "react-hot-toast";
+import UploadFile from "../utils/mediaUpload";
+
 
 export default function TestPage(){
-    const [count,setCount] = useState(0)
-    
+    const [file, setfile] = useState(null);
 
-    function increment(){
-        setCount(count + 1);
-    }
-
-    function decrement(){
-        setCount(count - 1);
+    function handleUpload(){
+        UploadFile(file).then(
+            (url)=>{
+                console.log(url);
+            }
+        ).catch(
+            (error)=>{
+                console.error("Upload failed:", error);
+                toast.error("Upload failed: " + error);
+            }
+        )
     }
 
     return(
-        <div className="w-full h-screen bg-amber-200 flex justify-center items-center">
-            <div className="w-[400px] h-[400px] bg-white flex flex-col justify-center items-center">
-                <h1 className="text-3xl font-bold">{count}</h1>
-                <div className="w-full h-[80px] flex justify-center items-center">
-                    <button onClick={decrement} className="w-[90px] h-[40px] bg-blue-600 flex justify-center items-center text-white rounded-full text-3xl mx-2">
-                        -
-                    </button>
-                    <button onClick={increment} className="w-[90px] h-[40px] bg-blue-600 flex justify-center items-center text-white rounded-full text-3xl mx-2">
-                        +
-                    </button>
-                </div>
-                
-            </div>
+        <div className="w-full h-full flex justify-center items-center">
+            <input type="file" onChange={
+                (e)=>{
+                    setfile(e.target.files[0]);
+                }
+            }/>
+            <button onClick={handleUpload} className="bg-blue-500 text-white p-2 rounded-lg">
+                Upload
+            </button>
         </div>
     );
 }

@@ -38,32 +38,32 @@ export default function LoginPage(){
     }
 
     return(
-        <div className="w-full h-screen bg-[url(loginBg.jpg)] bg-cover flex justify-center items-center">
+        <div className="w-full h-screen bg-[url(bgLogin.jpg)] bg-cover bg-bottom flex justify-center items-center">
             <div className="w-[500px] h-[500px] backdrop-blur-sm shadow-2xl rounded-[30px] flex flex-col items-center justify-center relative gap-[20px]">
-                <h1 className="absolute top-[20px] text-3xl font-bold text-center my-5">Login</h1>
+                <h1 className="absolute top-[20px] text-white text-3xl font-bold text-center my-5">Login</h1>
                 <div className="w-[350px] flex flex-col">
-                    <span className="text-lg">Email</span>
+                    <span className="text-lg text-white">Email</span>
                     <input onChange={
                         (e)=>{
                             setEmail(e.target.value)
                             console.log("Email has been updated")
                         }
-                    } type="text" className="w-[350px] h-[45px] border border-black rounded-xl"/>
+                    } type="text" className="w-[350px] h-[45px] text-white border border-white rounded-xl"/>
                 </div>
 
                 <div className="w-[350px] flex flex-col">
-                    <span className="text-lg">Password</span>
+                    <span className="text-lg text-white">Password</span>
                     <input onChange={
                         (e)=>{
                             setPassword(e.target.value)
                             console.log("Password has been updated")
                         }
-                    } type="text" className="w-[350px] h-[45px] border border-black rounded-xl"/>
+                    } type="text" className="w-[350px] h-[45px] text-white border border-white rounded-xl"/>
                 </div>
                 <button onClick={Login} className="w-[350px] h-[45px] bg-blue-500 text-white rounded-xl mt-5 hover:bg-blue-600 transition duration-300">
                     Login
                 </button>
-                <p>Don't have an account? <Link to="/register" className="text-blue-600 ">Sign Up</Link> from here</p>
+                <p className="text-white">Don't have an account? <Link to="/register" className="text-blue-600 ">Sign Up</Link> from here</p>
             </div>
         </div>
     );
