@@ -69,7 +69,6 @@ import Loader from "../../components/loader";
 //   }
 // ];
 
-
 export default function ProductsAdminPage(){
   const [products,setProducts] = useState([]);
   const [isLoading,setisLoading] = useState(true);
@@ -135,7 +134,7 @@ export default function ProductsAdminPage(){
                               console.log("Product deleted successfully")
                               console.log(res);
                               toast.success("Product deleted successfully");
-                              setisLoading(!true);
+                              setisLoading(true);
                             }
                           ).catch(
                             (error)=>{

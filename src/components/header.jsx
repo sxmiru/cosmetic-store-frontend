@@ -7,7 +7,7 @@ export default function Header() {
                     Home
                 </Link>
                 <Link to="/products" className="text-white text-xl ml-4">
-                    Prodcuts
+                    Products
                 </Link>
                 <Link to="/reviews" className="text-white text-xl ml-4">
                     Reviews

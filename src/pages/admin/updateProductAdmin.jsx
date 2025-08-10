@@ -46,7 +46,7 @@ export default function UpdateProductPage(){
             category : category
         }
 
-        if(responses.lenght === 0){
+        if(responses.length === 0){
            productData.images = location.state.images 
         }
 
@@ -64,14 +64,14 @@ export default function UpdateProductPage(){
             }
         ).then(
             (response)=>{
-                console.log("Product added successfully", response.data);
-                toast.success("Product added successfully");
+                console.log("Product updated successfully", response.data);
+                toast.success("Product updated successfully");
                 navigate("/admin/products");
             }
         ).catch(
             (error)=>{
-                console.log("Failed to add product", error);
-                toast.error("Failed to add product");
+                console.log("Failed to update product", error);
+                toast.error("Failed to update product");
             }
         )
     }
