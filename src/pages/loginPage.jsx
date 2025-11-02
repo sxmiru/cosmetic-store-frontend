@@ -23,7 +23,7 @@ export default function LoginPage(){
 
                     navigate("/admin")
                     
-                }else if(response.user.role = "user"){
+                }else if(response.data.role == "user"){
                     
                     navigate("/")
 
