@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { data } from "react-router-dom";
-import Loader from "../components/loader";
-import ProductCard from "../components/productCard";
+import Loader from "../../components/loader";
+import ProductCard from "../../components/productCard";
 
 export default function ProductPage() {
 

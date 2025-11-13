@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import ProductOverviewPage from "../pages/productOverviewPage";
 
 export default function productCard(props) {
     const product = props.product
@@ -16,11 +15,11 @@ export default function productCard(props) {
                 <div>
                     {product.labelledPrice > product.price ? (
                         <p>
-                            <span className="line-through">{product.labelledPrice}</span>
-                            <span>{product.price.toFixed(2)}</span>                        
+                            <span className="line-through mr-[10px]">{product.labelledPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                            <span>{product.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>                        
                         </p> 
                     ) : (
-                        <span>{product.price}</span>
+                        <span>{product.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
                     )
                     }
                 </div>

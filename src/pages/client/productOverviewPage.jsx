@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Loader from "../components/loader";
-import ImageSlider from "../components/imageSlider";
+import Loader from "../../components/loader";
+import ImageSlider from "../../components/imageSlider";
 
 export default function ProductOverviewPage() {
 
@@ -21,6 +21,7 @@ export default function ProductOverviewPage() {
                 ).catch(
                     (err) => {
                         console.error(err);
+                        toast.error("Failed to load product");
                         setStatus("error");
                     }
                 )

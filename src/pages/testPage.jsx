@@ -3,8 +3,6 @@ import { createClient } from "@supabase/supabase-js";
 import uploadFile from "../utils/mediaUpload.jsx";
 import toast from "react-hot-toast";
 
-
-//Simple image upload code 
 const url = "https://tsxsxbetowapbmdrnugq.supabase.co"
 const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRzeHN4YmV0b3dhcGJtZHJudWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzQ1NzYsImV4cCI6MjA2NzkxMDU3Nn0.H8BBmITixWMafCc4ocgLvUTe4o_BrbISxbYz6XMrgow"
 

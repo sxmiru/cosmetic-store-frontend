@@ -11,7 +11,7 @@ export default function AddProductPage(){
     const [alternativeNames, setAlternativeNames] = useState("");
     const [labelledPrice, setLabelledPrice] = useState("");
     const [price, setPrice] = useState("");
-    const [images, setImages] = useState("");
+    const [images, setImages] = useState([]);
     const [description, setDescription] = useState("");
     const [stock, setStock] = useState("");
     const [isAvailable, setIsAvailable] = useState(true);

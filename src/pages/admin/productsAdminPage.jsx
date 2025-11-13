@@ -72,19 +72,21 @@ import Loader from "../../components/loader";
 export default function ProductsAdminPage(){
   const [products,setProducts] = useState([]);
   const [isLoading,setisLoading] = useState(true);
+
   useEffect(
     ()=>{
       if(isLoading){
         axios.get(import.meta.env.VITE_BACKEND_URL+"/api/products").then(
-        (response)=> {
-          setProducts(response.data);
-          setisLoading(false);
-        }
+          (response)=> {
+            setProducts(response.data);
+            setisLoading(false);
+          }
       )
       }
     },
     [isLoading]
   )
+  
   const navigate = useNavigate();
 
     return(
@@ -117,7 +119,7 @@ export default function ProductsAdminPage(){
                       <td className="p-[10px]">{product.category}</td>
                       <td className="p-[10px]">{product.stock}</td>
                       <td className="p-[15px] flex flex-row items-center justify-center">
-                        <BiTrash className="text-red-500 cursor-pointer" onClick={
+                        <BiTrash className="bg-red-500 p-[7px] text-3xl text-white shadow-2xl rounded-full cursor-pointer" onClick={
                           ()=>{
                             const token = localStorage.getItem("token");
                             if(token == null){
@@ -150,7 +152,7 @@ export default function ProductsAdminPage(){
                                 state : product
                               }
                             )
-                          }} className="text-blue-800 cursor-pointer"/>
+                          }} className="bg-blue-500 text-white text-3xl p-[7px] ml-[15px] shadow-2xl rounded-full cursor-pointer"/>
                       </td>
                     </tr>
                   )

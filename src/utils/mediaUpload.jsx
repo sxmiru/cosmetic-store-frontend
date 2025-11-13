@@ -25,7 +25,6 @@ export default function uploadFile(file){
                 ()=>{
                     const publicUrl = supabase.storage.from("images").getPublicUrl(fileName).data.publicUrl;
                     ressolve(publicUrl);
-                    toast.success("Success toast from util")
                 }
             ).catch(
                 (error)=>{

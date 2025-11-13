@@ -20,7 +20,6 @@ function App() {
             <Route path="/register" element={<RegisterPage/>} />
             <Route path="/admin/*" element={<AdminPage/>} />
             <Route path="/*" element={<ClientWebpage/>}/>
-            <Route path="/testpage" element={<TestPage/>}/>
           </Routes>
         </div>
       </BrowserRouter>
