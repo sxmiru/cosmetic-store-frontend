@@ -1,14 +1,15 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Loader from "../../components/loader";
 import ImageSlider from "../../components/imageSlider";
-import { DiVim } from "react-icons/di";
+import { addToCart, getCart } from "../../utils/cart";
 
 export default function ProductOverviewPage() {
 
     const params = useParams();
+    const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const [status, setStatus] = useState("loading"); //loading, success, error
     useEffect(
@@ -56,8 +57,25 @@ export default function ProductOverviewPage() {
                             }
                         </div>
                         <div className="w-full flex flex-row justify-center items-center mt-[20px] gap-[10px]">
-                            <button className="w-[200px] h-[50px] cursor-pointer rounded-xl shadow-2xl text-white bg-blue-900 border-[3px] border-blue-800 hover:bg-white hover:text-blue-900">Buy Now</button>
-                            <button className="w-[200px] h-[50px] cursor-pointer rounded-xl shadow-2xl text-white bg-blue-500 border-[3px] border-blue-500 hover:bg-white hover:text-blue-900">Add to Cart</button>
+                            <button className="w-[200px] h-[50px] cursor-pointer rounded-xl shadow-2xl text-white bg-blue-900 border-[3px] border-blue-800 hover:bg-white hover:text-blue-900" onClick={
+                                ()=>{
+                                    navigate("/checkout",{state: {items: 
+                                        [{productId: product.productId,
+                                            quantity: 1,
+                                            name: product.name,
+                                            image: product.images[0],
+                                            price: product.price
+                                        }]
+                                    }});
+                                }
+                            }>Buy Now</button>
+                            <button className="w-[200px] h-[50px] cursor-pointer rounded-xl shadow-2xl text-white bg-blue-500 border-[3px] border-blue-500 hover:bg-white hover:text-blue-900" onClick={
+                                ()=>{
+                                    addToCart(product, 1)
+                                    toast.success("Added to cart");
+                                    console.log(getCart());
+                                }
+                            }>Add to Cart</button>
                         </div>
                     </div>
                 </div>
