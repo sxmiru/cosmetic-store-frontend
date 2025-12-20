@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addToCart, getCart, getTotal } from "../../utils/cart";
 import { BiTrash } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,11 +9,37 @@ export default function CheckOutPage(){
     const location = useLocation();
     const navigate = useNavigate();
     const [cart, setCart] = useState(location.state.items || []);
-
-    if(location.state.items == null){
+    const [user, setUser] = useState(null);
+    const [name, setName] = useState("");
+    const[address, setAddress] = useState("");
+    const [phone, setPhone] = useState("");
+    useEffect(()=>{
+        const token = localStorage.getItem("token");
+        if(token == null){
+            toast.error("Please login to checkout");
+            navigate("/login");
+            return;
+        }else {
+            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/", {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then((res) => {
+                setUser(res.data);
+                setName(`${res.data.firstName} ${res.data.lastName}`)
+            })
+            .catch((error) => {
+                console.error(error);
+                toast.error("Failed to fetch user details");
+                navigate("/login");
+            });
+        }
+        
+        if(location.state.items.length == 0){
         toast.error("Please select items to checkout")
         navigate("/products");
+        return;
     }
+    },[]);
 
     function getTotal(){
         let total = 0;
@@ -33,9 +59,13 @@ export default function CheckOutPage(){
             navigate("/login");
             return;
         }
+        if(name == "" || address == "" || phone == ""){
+            toast.error("Please fill all fields")
+            return;
+        }
         const order = {
-            phone: "0763331345",
-            address: "123 Main Street, Colombo",
+            phone: phone,
+            address: address,
             items: []
         }
         cart.forEach(
@@ -121,6 +151,26 @@ export default function CheckOutPage(){
                     onClick={placeOrder}>
                     Place Order
                 </button>
+            </div>
+            <div className="w-[800px] h-[100px] m-[10px] p-[10px] shadow-2xl flex flex-row items-center justify-center">
+                <input className="w-[250px] h-[40px] border border-gray-300 rounded-lg p-[10px] m-[10px]"
+                    type="text"
+                    placeholder="Enter your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <input className="w-[250px] h-[40px] border border-gray-300 rounded-lg p-[10px] m-[10px]"
+                    type="text"
+                    placeholder="Enter your address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                />
+                <input className="w-[250px] h-[40px] border border-gray-300 rounded-lg p-[10px] m-[10px]"
+                    type="text"
+                    placeholder="Enter your phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                />
             </div>
         </div>
     );
