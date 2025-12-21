@@ -20,14 +20,14 @@ export default function CartPage(){
                                     <span className="font-semibold">{item.price}</span>
                                 </div>
                                 <div className="w-[190px] h-full flex flex-row justify-center items-center">
-                                    <button className="flex items-center justify-center w-[30px] rounded-lg bg-blue-500 text-white font-bold cursor-pointer hover:bg-blue-400" onClick={
+                                    <button className="flex items-center justify-center w-[30px] rounded-lg bg-accent text-white font-bold cursor-pointer hover:bg-blue-400" onClick={
                                         ()=>{
                                             addToCart(item, -1);
                                             setCart(getCart());
                                         }
                                     }>-</button>
                                     <button className="mx-[10px]">{item.quantity}</button>
-                                    <button className="flex items-center justify-center w-[30px] rounded-lg bg-blue-500 text-white font-bold cursor-pointer hover:bg-blue-400" onClick={
+                                    <button className="flex items-center justify-center w-[30px] rounded-lg bg-accent text-white font-bold cursor-pointer hover:bg-blue-400" onClick={
                                         ()=>{
                                             addToCart(item, 1);
                                             setCart(getCart());
@@ -52,7 +52,8 @@ export default function CartPage(){
                 <span className="font-bold text-2xl ">
                     Total: {getTotal().toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                 </span>
-                <button className="absolute left-[10px] w-[150px] h-[50px] cursor-pointer rounded-lg shadow-2xl border-[2px] border-blue-600 text-white font-semibold bg-blue-600 hover:bg-white hover:text-blue-600" onClick={
+                <button className="absolute left-[10px] w-[150px] h-[50px] cursor-pointer rounded-lg shadow-2xl border-[2px] border-
+                 text-white font-semibold bg-accent hover:bg-white hover:text-accent" onClick={
                     ()=>{
                         navigate("/checkout",
                             {
