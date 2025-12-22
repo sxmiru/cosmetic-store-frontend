@@ -46,7 +46,7 @@ export default function ProductOverviewPage() {
                         <h1 className="text-2xl font-bold hidden md:block ">{product.name}<span className="font-light ml-2.5">{product.altNames.join(" | ")}</span></h1>
                         <p className="text-lg p-2">{product.description}</p>
                         <div className="w-full flex flex-col items-center mt-[20px]">
-                            {
+                            {  
                                 product.labelledPrice > product.price ? 
                                 <div>
                                     <span className="text-2xl line-through mr-[20px]">{product.labelledPrice.toLocaleString("en-Us", {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
