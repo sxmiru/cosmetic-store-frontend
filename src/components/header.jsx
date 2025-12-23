@@ -7,11 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
     const navigate = useNavigate();
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     return (
             <header className="h-[100px] bg-accent flex  justify-center items-center relative">
                 {isOpen &&
-                    <div className="fixed z-[100] w-[100vw] h-[100vh] top-0 right-0 bg-black/50 md:hidden" >
+                    <div className="fixed z-[100] w-[100vw] h-[100vh] top-0 right-0 bg-black/50" >
                         <div className="h-full w-[350px] bg-white flex flex-col">
                             <div className="w-full h-[100px] bg-accent flex pl-[45px] flex-row items-center gap-[20px]">
                                 <GiHamburgerMenu className="text-white text-4xl md:hidden" onClick={()=>{
