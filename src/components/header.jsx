@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Header() {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
+    const token = localStorage.getItem("token");
+
     return (
             <header className="h-[100px] bg-accent flex  justify-center items-center relative">
                 {isOpen &&
@@ -74,9 +76,18 @@ export default function Header() {
                     <Link to="/contact-us" className="text-white text-xl ml-4">
                         Contact Us
                     </Link>
-                    <Link to="/cart" className="absolute right-12">
+                    <Link to="/cart" className="absolute right-[160px]">
                         <BiCart className="text-white text-xl ml-4"/>
-                    </Link> 
+                    </Link>
+                    {
+                        token != null && <button onClick={()=>{
+                            localStorage.removeItem("token");
+                            navigate("/login");
+                        }}
+                        className="absolute right-12 text-white text-xl ml-4 cursor-pointer">
+                            Logout
+                        </button>
+                    }
                 </div>    
             </header>       
     );
