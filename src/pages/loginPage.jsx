@@ -64,7 +64,7 @@ export default function LoginPage(){
     return(
         <div className="w-full h-screen bg-[url(bgLogin.jpg)] bg-cover bg-bottom flex justify-center items-center">
             <div className="w-[500px] h-[500px] backdrop-blur-sm shadow-2xl rounded-[30px] flex flex-col items-center justify-center relative gap-[20px]">
-                <h1 className="absolute top-[20px] text-white text-3xl font-bold text-center my-5">Login</h1>
+                <h1 className="absolute top-[15px] text-white text-3xl font-bold text-center my-5">Login</h1>
                 <div className="w-[350px] flex flex-col">
                     <span className="text-lg text-white">Email</span>
                     <input onChange={
@@ -87,10 +87,11 @@ export default function LoginPage(){
                 <button onClick={Login} className="w-[350px] h-[45px] bg-blue-500 text-white rounded-xl mt-5 hover:bg-blue-600 transition duration-300">
                     Login
                 </button>
-                <button onClick={googleLogin} className="w-[350px] h-[45px] bg-blue-500 text-white rounded-xl mt-5 hover:bg-blue-600 transition duration-300">
+                <button onClick={googleLogin} className="w-[350px] h-[45px] bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition duration-300">
                     Google Login
                 </button>
                 <p className="text-white">Don't have an account? <Link to="/register" className="text-blue-600 ">Sign Up</Link> from here</p>
+                <p className="text-white">Forget Password? <Link to="/forget" className="text-blue-600 ">Reset password</Link> from here</p>
             </div>
         </div>
     );
