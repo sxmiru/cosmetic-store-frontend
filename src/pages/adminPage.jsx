@@ -10,7 +10,7 @@ import OrdersPageAdmin from "./admin/ordersAdminPage.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Loader from "../components/Loader.jsx";
+import Loader from "../components/loader.jsx";
 import ReviewsAdminPage from "./admin/reviewsAdminPage.jsx";
 
 export default function AdminPage() {
