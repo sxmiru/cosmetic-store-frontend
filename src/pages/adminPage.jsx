@@ -7,11 +7,11 @@ import ProductsAdminPage from "./admin/productsAdminPage";
 import AddProductPage from "./admin/addProductAdminPage";
 import UpdateProductPage from "./admin/updateProductAdmin";
 import OrdersPageAdmin from "./admin/ordersAdminPage.jsx";
-import Loader from "../components/loader.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ReviewsAdminPage from "./admin/reviewsAdminPage.jsx";
+import Loader from "../components/Loader.jsx";
 
 export default function AdminPage() {
 
