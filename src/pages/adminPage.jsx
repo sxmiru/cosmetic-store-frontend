@@ -1,5 +1,5 @@
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import { FaBoxArchive } from "react-icons/fa6";
+import { FaBoxArchive, FaNoteSticky } from "react-icons/fa6";
 import { FaBagShopping } from "react-icons/fa6";
 import { IoPeople } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
@@ -7,10 +7,11 @@ import ProductsAdminPage from "./admin/productsAdminPage";
 import AddProductPage from "./admin/addProductAdminPage";
 import UpdateProductPage from "./admin/updateProductAdmin";
 import OrdersPageAdmin from "./admin/ordersAdminPage.jsx";
-import Loader from "../components/loader.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Loader from "../components/loader.jsx";
+import ReviewsAdminPage from "./admin/reviewsAdminPage.jsx";
 
 export default function AdminPage() {
 
@@ -52,6 +53,7 @@ useEffect(
           <span className="text-3xl font-bold my-5">Admin Panel</span>
           <Link className="flex items-center p-[20px] row h-[60px] w-full text-xl gap-[25px]" to="/admin/products"><FaBoxArchive/>Products</Link>
           <Link className="flex items-center p-[20px] row h-[60px] w-full text-xl gap-[25px]" to="/admin/orders"><FaBagShopping/>Orders</Link>
+          <Link className="flex items-center p-[20px] row h-[60px] w-full text-xl gap-[25px]" to="/admin/reviews"><FaNoteSticky/>Reviews</Link>
           <Link className="flex items-center p-[20px] row h-[60px] w-full text-xl gap-[25px]" to="/admin/users"><IoPeople/>Users</Link>
           <Link className="flex items-center p-[20px] row h-[60px] w-full text-xl gap-[25px]" to="/admin/settings"><IoMdSettings/>Settings</Link>
         </div>
@@ -61,7 +63,8 @@ useEffect(
             <Route path="/products" element={<ProductsAdminPage/>} />
             <Route path="/newProduct" element={<AddProductPage/>}/>
             <Route path="/updateProduct" element={<UpdateProductPage/>}/>
-            <Route path="/orders" element={<OrdersPageAdmin/>} />
+            <Route path="/orders" element={<OrdersPageAdmin/>}/>
+            <Route path="/reviews" element={<ReviewsAdminPage/>}/>
           </Routes>
         </div>
       </> : <Loader/>}
