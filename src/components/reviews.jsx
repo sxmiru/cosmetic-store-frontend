@@ -31,8 +31,15 @@ export default function Reviews({productId}) {
 
         useEffect(()=>{
             if(isLoadingUser){
+                const token = localStorage.getItem("token");
+
+                if(!token) {
+                    setIsLoadingUser(false);
+                    return;
+                }
+
             axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/", {
-                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                headers: { Authorization: `Bearer ${token}` }
             })
             .then((res)=>{
             setUser(res.data);
@@ -40,6 +47,7 @@ export default function Reviews({productId}) {
             })
             .catch((error)=>{
             console.log("Faild to get user", error);
+            setIsLoadingUser(false);
             })}
         }, [isLoadingUser])
         
@@ -327,7 +335,7 @@ export default function Reviews({productId}) {
                     )}
                 </div>
 
-                {review.email == user.email && <div className="flex gap-2">
+                {user?.email && review.email === user.email && <div className="flex gap-2">
                     <button
                         className="text-sm text-blue-600"
                         onClick={() => {
