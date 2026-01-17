@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Star, Quote, Calendar, User } from "lucide-react";
+import { Star, Quote, Calendar, User, ChevronLeft, ChevronRight } from "lucide-react";
 import Loader from "../../components/Loader"; 
 import { useNavigate } from "react-router-dom";
 
@@ -11,20 +11,21 @@ export default function Reviews() {
     const [isLoading, setIsLoading] = useState(true);
     const [ratingFilter, setRatingFilter] = useState(0);
     const [sortBy, setSortBy] = useState("latest");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [limit] = useState(10);
 
     useEffect(() => {
-        fetchReviews();
-    }, []);
+        fetchReviews(currentPage);
+    }, [currentPage]);
 
     useEffect(() => {
         let filtered = [...reviews];
         
-        // Filter by rating
         if (ratingFilter > 0) {
             filtered = filtered.filter(review => review.rating === ratingFilter);
         }
-        
-        // Sort reviews
+
         switch(sortBy) {
             case "highest":
                 filtered.sort((a, b) => b.rating - a.rating);
@@ -42,11 +43,15 @@ export default function Reviews() {
         setFilteredReviews(filtered);
     }, [reviews, ratingFilter, sortBy]);
 
-    async function fetchReviews() {
+    async function fetchReviews(page = 1) {
         try {
-            const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/reviews");
+            setIsLoading(true);
+            const response = await axios.get(
+                `${import.meta.env.VITE_BACKEND_URL}/api/reviews/${page}/${limit}`
+            );
             setReviews(response.data.reviews);
             setFilteredReviews(response.data.reviews);
+            setTotalPages(response.data.totalPages);
             setIsLoading(false);
         } catch (error) {
             console.error("Error fetching reviews:", error);
@@ -81,6 +86,31 @@ export default function Reviews() {
         return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
     };
 
+    // Pagination controls
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setCurrentPage(newPage);
+        }
+    };
+
+    const [allReviews, setAllReviews] = useState([]);
+    
+    useEffect(() => {
+        const fetchAllReviewsForStats = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/reviews/all`);
+                setAllReviews(response.data.reviews);
+            } catch (error) {
+                console.error("Error fetching all reviews for stats:", error);
+                setAllReviews(reviews);
+            }
+        };
+        
+        fetchAllReviewsForStats();
+    }, []);
+ 
+    const statsReviews = allReviews.length > 0 ? allReviews : reviews;
+
     return (
         <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white py-12">
             {isLoading ? (
@@ -107,25 +137,27 @@ export default function Reviews() {
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <div className="text-center p-6 bg-orange-50 rounded-xl">
                                 <div className="text-3xl font-bold text-[#F25912] mb-2">
-                                    {reviews.length}
+                                    {statsReviews.length}
                                 </div>
                                 <div className="text-gray-600">Total Reviews</div>
                             </div>
                             <div className="text-center p-6 bg-orange-50 rounded-xl">
                                 <div className="text-3xl font-bold text-[#F25912] mb-2">
-                                    {(reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1)}
+                                    {statsReviews.length > 0 
+                                        ? (statsReviews.reduce((acc, review) => acc + review.rating, 0) / statsReviews.length).toFixed(1)
+                                        : "0.0"}
                                 </div>
                                 <div className="text-gray-600">Average Rating</div>
                             </div>
                             <div className="text-center p-6 bg-orange-50 rounded-xl">
                                 <div className="text-3xl font-bold text-[#F25912] mb-2">
-                                    {reviews.filter(r => r.rating >= 4).length}
+                                    {statsReviews.filter(r => r.rating >= 4).length}
                                 </div>
                                 <div className="text-gray-600">Positive Reviews</div>
                             </div>
                             <div className="text-center p-6 bg-orange-50 rounded-xl">
                                 <div className="text-3xl font-bold text-[#F25912] mb-2">
-                                    {new Set(reviews.map(r => r.productId)).size}
+                                    {new Set(statsReviews.map(r => r.productId)).size}
                                 </div>
                                 <div className="text-gray-600">Products Reviewed</div>
                             </div>
@@ -243,6 +275,64 @@ export default function Reviews() {
                         )}
                     </div>
 
+                    {/* Pagination Controls */}
+                    {totalPages > 1 && (
+                        <div className="flex justify-center items-center gap-4 mb-12">
+                            <button
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg ${currentPage === 1 
+                                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'}`}
+                            >
+                                <ChevronLeft size={20} />
+                                Previous
+                            </button>
+                            
+                            <div className="flex items-center gap-2">
+                                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                    let pageNum;
+                                    if (totalPages <= 5) {
+                                        pageNum = i + 1;
+                                    } else if (currentPage <= 3) {
+                                        pageNum = i + 1;
+                                    } else if (currentPage >= totalPages - 2) {
+                                        pageNum = totalPages - 4 + i;
+                                    } else {
+                                        pageNum = currentPage - 2 + i;
+                                    }
+                                    
+                                    return (
+                                        <button
+                                            key={pageNum}
+                                            onClick={() => handlePageChange(pageNum)}
+                                            className={`w-10 h-10 rounded-full ${currentPage === pageNum 
+                                                ? 'bg-[#F25912] text-white' 
+                                                : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'}`}
+                                        >
+                                            {pageNum}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                            
+                            <button
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg ${currentPage === totalPages 
+                                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'}`}
+                            >
+                                Next
+                                <ChevronRight size={20} />
+                            </button>
+                            
+                            <span className="text-gray-600 text-sm">
+                                Page {currentPage} of {totalPages}
+                            </span>
+                        </div>
+                    )}
+
                     {/* CTA Section */}
                     <div className="bg-gradient-to-r from-[#F25912] to-orange-500 rounded-3xl p-12 text-center text-white mb-12">
                         <h2 className="text-3xl font-bold mb-6">Share Your Experience</h2>
@@ -262,8 +352,8 @@ export default function Reviews() {
                         <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Rating Distribution</h3>
                         <div className="max-w-2xl mx-auto">
                             {[5, 4, 3, 2, 1].map(rating => {
-                                const count = reviews.filter(r => r.rating === rating).length;
-                                const percentage = (count / reviews.length) * 100;
+                                const count = statsReviews.filter(r => r.rating === rating).length;
+                                const percentage = statsReviews.length > 0 ? (count / statsReviews.length) * 100 : 0;
                                 
                                 return (
                                     <div key={rating} className="flex items-center gap-4 mb-4">

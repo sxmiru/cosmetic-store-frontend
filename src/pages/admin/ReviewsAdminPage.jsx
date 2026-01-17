@@ -15,7 +15,7 @@ export default function ReviewsAdminPage() {
 
     useEffect(() => {
         if (isLoading) {
-            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/reviews")
+            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/reviews"+"/"+page+"/"+limit)
                 .then((res) => {
                     setReviews(res.data.reviews);
                     setTotalPages(res.data.totalPages);
@@ -165,7 +165,7 @@ export default function ReviewsAdminPage() {
                                 <button className="flex-1 bg-red-500 text-white p-2 rounded hover:bg-red-600" onClick={deleteReview}>
                                     Delete
                                 </button>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
