@@ -66,7 +66,7 @@ export default function Reviews() {
                     <Star 
                         key={i} 
                         size={18} 
-                        className={i < rating ? "fill-[#F25912] text-[#F25912]" : "fill-gray-300 text-gray-300"}
+                        className={i < rating ? "fill-accent text-accent" : "fill-gray-300 text-gray-300"}
                     />
                 ))}
                 <span className="ml-2 font-semibold text-gray-700">{rating}.0</span>
@@ -121,11 +121,11 @@ export default function Reviews() {
                 <div className="container mx-auto px-6">
                     {/* Hero Section */}
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#F25912]/10 mb-6">
-                            <Quote className="w-8 h-8 text-[#F25912]" />
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-6">
+                            <Quote className="w-8 h-8 text-accent" />
                         </div>
                         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                            Customer <span className="text-[#F25912]">Reviews</span>
+                            Customer <span className="text-accent">Reviews</span>
                         </h1>
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                             Real experiences from our beauty community. See what our customers love about CBC Cosmetic products.
@@ -136,13 +136,13 @@ export default function Reviews() {
                     <div className="bg-white rounded-2xl shadow-xl p-8 mb-12">
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <div className="text-center p-6 bg-orange-50 rounded-xl">
-                                <div className="text-3xl font-bold text-[#F25912] mb-2">
+                                <div className="text-3xl font-bold text-accent mb-2">
                                     {statsReviews.length}
                                 </div>
                                 <div className="text-gray-600">Total Reviews</div>
                             </div>
                             <div className="text-center p-6 bg-orange-50 rounded-xl">
-                                <div className="text-3xl font-bold text-[#F25912] mb-2">
+                                <div className="text-3xl font-bold text-accent mb-2">
                                     {statsReviews.length > 0 
                                         ? (statsReviews.reduce((acc, review) => acc + review.rating, 0) / statsReviews.length).toFixed(1)
                                         : "0.0"}
@@ -150,13 +150,13 @@ export default function Reviews() {
                                 <div className="text-gray-600">Average Rating</div>
                             </div>
                             <div className="text-center p-6 bg-orange-50 rounded-xl">
-                                <div className="text-3xl font-bold text-[#F25912] mb-2">
+                                <div className="text-3xl font-bold text-accent mb-2">
                                     {statsReviews.filter(r => r.rating >= 4).length}
                                 </div>
                                 <div className="text-gray-600">Positive Reviews</div>
                             </div>
                             <div className="text-center p-6 bg-orange-50 rounded-xl">
-                                <div className="text-3xl font-bold text-[#F25912] mb-2">
+                                <div className="text-3xl font-bold text-accent mb-2">
                                     {new Set(statsReviews.map(r => r.productId)).size}
                                 </div>
                                 <div className="text-gray-600">Products Reviewed</div>
@@ -171,7 +171,7 @@ export default function Reviews() {
                             <div className="flex flex-wrap gap-2">
                                 <button 
                                     onClick={() => setRatingFilter(0)}
-                                    className={`px-4 py-2 rounded-full ${ratingFilter === 0 ? 'bg-[#F25912] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                                    className={`px-4 py-2 rounded-full ${ratingFilter === 0 ? 'bg-accent text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                                 >
                                     All Ratings
                                 </button>
@@ -179,7 +179,7 @@ export default function Reviews() {
                                     <button
                                         key={rating}
                                         onClick={() => setRatingFilter(rating)}
-                                        className={`px-4 py-2 rounded-full flex items-center gap-2 ${ratingFilter === rating ? 'bg-[#F25912] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                                        className={`px-4 py-2 rounded-full flex items-center gap-2 ${ratingFilter === rating ? 'bg-accent text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                                     >
                                         <Star size={16} className={ratingFilter === rating ? "fill-white" : "fill-gray-400"} />
                                         {rating} Stars
@@ -193,7 +193,7 @@ export default function Reviews() {
                             <select 
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
-                                className="px-4 py-2 rounded-lg border border-gray-300 focus:border-[#F25912] focus:ring-2 focus:ring-[#F25912]/20 outline-none"
+                                className="px-4 py-2 rounded-lg border border-gray-300 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none"
                             >
                                 <option value="latest">Latest First</option>
                                 <option value="highest">Highest Rating</option>
@@ -216,8 +216,8 @@ export default function Reviews() {
                                     {/* Review Header */}
                                     <div className="p-6 border-b">
                                         <div className="flex items-center gap-4 mb-4">
-                                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#F25912]/20 to-pink-200 flex items-center justify-center">
-                                                <span className="font-bold text-[#F25912] text-lg">
+                                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent/20 to-pink-200 flex items-center justify-center">
+                                                <span className="font-bold text-accent text-lg">
                                                     {getInitials(review.firstName, review.lastName)}
                                                 </span>
                                             </div>
@@ -241,10 +241,10 @@ export default function Reviews() {
                                     <div className="p-6">
                                         <div className="mb-4">
                                             <div className="flex items-center gap-2 mb-2">
-                                                <div className="w-8 h-8 rounded-full bg-[#F25912]/10 flex items-center justify-center">
-                                                    <Quote size={16} className="text-[#F25912]" />
+                                                <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                                                    <Quote size={16} className="text-accent" />
                                                 </div>
-                                                <span className="text-sm font-semibold text-[#F25912]">Product #{review.productId}</span>
+                                                <span className="text-sm font-semibold text-accent">Product #{review.productId}</span>
                                             </div>
                                             <p className="text-gray-700 leading-relaxed">{review.comment}</p>
                                         </div>
@@ -256,7 +256,7 @@ export default function Reviews() {
                                             <span className="text-sm text-gray-500">
                                                 Verified Purchase
                                             </span>
-                                            <div className="text-xs px-3 py-1 rounded-full bg-[#F25912]/10 text-[#F25912] font-semibold">
+                                            <div className="text-xs px-3 py-1 rounded-full bg-accent/10 text-accent font-semibold">
                                                 {review.rating >= 4 ? 'Highly Recommended' : 
                                                  review.rating >= 3 ? 'Satisfied' : 'Needs Improvement'}
                                             </div>
@@ -307,7 +307,7 @@ export default function Reviews() {
                                             key={pageNum}
                                             onClick={() => handlePageChange(pageNum)}
                                             className={`w-10 h-10 rounded-full ${currentPage === pageNum 
-                                                ? 'bg-[#F25912] text-white' 
+                                                ? 'bg-accent text-white' 
                                                 : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'}`}
                                         >
                                             {pageNum}
@@ -334,14 +334,14 @@ export default function Reviews() {
                     )}
 
                     {/* CTA Section */}
-                    <div className="bg-gradient-to-r from-[#F25912] to-orange-500 rounded-3xl p-12 text-center text-white mb-12">
+                    <div className="bg-gradient-to-r from-accent to-orange-500 rounded-3xl p-12 text-center text-white mb-12">
                         <h2 className="text-3xl font-bold mb-6">Share Your Experience</h2>
                         <p className="text-xl mb-8 max-w-2xl mx-auto">
                             Love our products? Help others discover the perfect beauty solutions by sharing your review.
                         </p>
                         <button 
                             onClick={() => window.location.href = "/products"}
-                            className="bg-white text-[#F25912] px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
+                            className="bg-white text-accent px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
                         >
                             Write a Review
                         </button>
@@ -359,16 +359,16 @@ export default function Reviews() {
                                     <div key={rating} className="flex items-center gap-4 mb-4">
                                         <div className="flex items-center gap-2 w-24">
                                             <span className="font-semibold text-gray-700">{rating}</span>
-                                            <Star size={16} className="fill-[#F25912] text-[#F25912]" />
+                                            <Star size={16} className="fill-accent text-accent" />
                                             <span className="text-gray-500 text-sm">({count})</span>
                                         </div>
                                         <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
                                             <div 
-                                                className="h-full bg-[#F25912] rounded-full transition-all duration-500"
+                                                className="h-full bg-accent rounded-full transition-all duration-500"
                                                 style={{ width: `${percentage}%` }}
                                             />
                                         </div>
-                                        <span className="w-12 text-right font-semibold text-[#F25912]">
+                                        <span className="w-12 text-right font-semibold text-accent">
                                             {percentage.toFixed(1)}%
                                         </span>
                                     </div>
