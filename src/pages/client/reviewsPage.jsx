@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Star, Quote, Calendar, User, ChevronLeft, ChevronRight } from "lucide-react";
-import Loader from "../../components/Loader"; 
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/loader";
 
 export default function Reviews() {
     const navigate = useNavigate();
@@ -115,7 +115,7 @@ export default function Reviews() {
         <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white py-12">
             {isLoading ? (
                 <div className="flex justify-center items-center min-h-[60vh]">
-                    <Loader />
+                    <Loader/>
                 </div>
             ) : (
                 <div className="container mx-auto px-6">

@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ReviewsAdminPage from "./admin/reviewsAdminPage.jsx";
-import Loader from "../components/Loader.jsx";
+import Loader from "../components/loader.jsx";
 
 export default function AdminPage() {
 
